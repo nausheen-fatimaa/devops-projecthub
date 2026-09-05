@@ -3,10 +3,28 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
+        stage('Verify Jenkins Workspace') {
             steps {
-                git branch: 'main',
-                    url: 'https://github.com/nausheen-fatimaa/devops-projecthub.git'
+                echo '======================================'
+                echo 'JENKINS WORKSPACE'
+                echo '======================================'
+
+                bat 'cd'
+                bat 'dir'
+
+                echo '======================================'
+                echo 'PACKAGE FILES'
+                echo '======================================'
+
+                bat 'dir package*.json'
+
+                echo '======================================'
+                echo 'GIT INFORMATION'
+                echo '======================================'
+
+                bat 'git remote -v'
+                bat 'git branch'
+                bat 'git log -1 --oneline'
             }
         }
 
@@ -24,7 +42,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'npm test'
+                echo 'Tests will be added in Step 6.'
             }
         }
     }
